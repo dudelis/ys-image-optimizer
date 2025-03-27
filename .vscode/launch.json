@@ -1,0 +1,48 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "shopify app dev",
+      "name": "Launch Program",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Attach by Process ID",
+      "processId": "${command:PickProcess}",
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    },
+    {
+      "name": "Attach to Shopify App",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "restart": true,
+      "protocol": "inspector",
+      "timeout": 10000
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Remix App",
+      "program": "${workspaceFolder}/server.js",
+      "args": ["dev"],
+      "runtimeExecutable": "node",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "NODE_ENV": "development",
+        "SHOPIFY_API_KEY": "8711cba688d40ac1844d47c627177dc5",
+        "SHOPIFY_API_SECRET": "4db167057efa7d073966176e09a8248e"
+      }
+    }
+  ]
+}

@@ -3,11 +3,12 @@
 client_id = "8711cba688d40ac1844d47c627177dc5"
 name = "ys-image-optimizer"
 handle = "ys-image-optimizer"
-application_url = "https://example.com/"
+application_url = "https://munich-self-as-columbus.trycloudflare.com"
 embedded = true
 
 [build]
 include_config_on_deploy = true
+automatically_update_urls_on_dev = true
 
 [webhooks]
 api_version = "2025-01"
@@ -22,10 +23,14 @@ api_version = "2025-01"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "write_products, read_files, write_files"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://munich-self-as-columbus.trycloudflare.com/auth/callback",
+  "https://munich-self-as-columbus.trycloudflare.com/auth/shopify/callback",
+  "https://munich-self-as-columbus.trycloudflare.com/api/auth/callback"
+]
 
 [pos]
 embedded = false
