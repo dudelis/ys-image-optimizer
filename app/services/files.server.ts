@@ -1,54 +1,51 @@
+import { authenticate } from "app/shopify.server";
 import type { IFileResponse, IFile, IPageInfo } from "app/types/files";
-import type { IPageDirection } from "app/types/filter";
 import { extractFileName, formatFileSize, isEmptyObject } from "app/utils";
+import type { IRequest } from "app/types/request";
 
-export async function fetchFiles(
-  shop: string,
-  apiVersion: string,
-  accessToken: string,
-  direction: IPageDirection,
-  cursor: string | null,
+export async function fetchFilesAction(
+  request: Request,
+  body: IRequest,
 ): Promise<IFileResponse> {
-  const dir = direction === "before" ? "before" : "after";
-  const limit = dir === "before" ? "last" : "first"; // Set limit to 10 for "after" direction
-  const response = await fetch(
-    `https://${shop}/admin/api/${apiVersion}/graphql.json`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Access-Token": accessToken,
-      },
-      body: JSON.stringify({
-        query: `{
-          files(${limit}: 10, ${dir}: ${cursor ? `"${cursor}"` : null}) {
-          pageInfo {
+  const { admin } = await authenticate.admin(request);
+  //const reqData: IRequest = await request.json();
+  const response = await admin.graphql(
+    `#graphql
+    query FilesQuery($first: Int, $last: Int, $after: String, $before: String, $sortKey: FileSortKeys, $reverse: Boolean, $query: String) {
+    files(
+      first: $first
+      last: $last
+      after: $after
+      before: $before
+      sortKey: $sortKey
+      reverse: $reverse
+      query: $query
+    ) {
+        edges {
+          node {
+            ... on MediaImage {
+              id
+              createdAt
+              originalSource {
+                fileSize
+                url
+              }
+              image {
+                altText
+                url
+              }
+            }
+          }
+        }
+        pageInfo {
           hasPreviousPage
           hasNextPage
           endCursor
           startCursor        
         }
-            edges {
-              node {
-                ... on MediaImage {
-                  id
-                  createdAt
-                  originalSource {
-                    fileSize
-                    url
-                  }
-                  image {
-                    altText
-                    url
-                  }
-                }
-              }
-            }
-          }
-        }
-      `,
-      }),
-    },
+      }
+    }`,
+    { variables: body.variables },
   );
 
   if (!response.ok) {

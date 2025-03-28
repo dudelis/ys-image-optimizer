@@ -3,7 +3,7 @@
 client_id = "8711cba688d40ac1844d47c627177dc5"
 name = "ys-image-optimizer"
 handle = "ys-image-optimizer"
-application_url = "https://munich-self-as-columbus.trycloudflare.com"
+application_url = "https://civilian-ballet-allan-chancellor.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products, read_files, write_files"
 
 [auth]
 redirect_urls = [
-  "https://munich-self-as-columbus.trycloudflare.com/auth/callback",
-  "https://munich-self-as-columbus.trycloudflare.com/auth/shopify/callback",
-  "https://munich-self-as-columbus.trycloudflare.com/api/auth/callback"
+  "https://civilian-ballet-allan-chancellor.trycloudflare.com/auth/callback",
+  "https://civilian-ballet-allan-chancellor.trycloudflare.com/auth/shopify/callback",
+  "https://civilian-ballet-allan-chancellor.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

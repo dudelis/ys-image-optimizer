@@ -1,14 +1,11 @@
 import {
   Page,
-  Layout,
   Card,
   TextField,
   BlockStack,
   Box,
   Text,
-  InlineGrid,
-  Divider,
-  useBreakpoints
+  InlineGrid
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useState } from "react";
@@ -16,7 +13,6 @@ import { useState } from "react";
 export default function SettingsPage() {
   const [url, setUrl] = useState("");
   const [apiKey, setApiKey] = useState("");
-
   const handleUrlChange = (value: string) => setUrl(value);
   const handleApiKeyChange = (value: string) => setApiKey(value);
 
